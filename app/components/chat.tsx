@@ -686,8 +686,7 @@ export function ChatActions(props: {
         <ChatAction
           onClick={() => setShowModelSelector(true)}
           text="点我切换模型"
-          icon={<RobotIcon className={styles["model-switch-icon"]} />}
-          className={styles["model-switch-button"]}
+          icon={<RobotIcon />}
         />
 
         {showModelSelector && (

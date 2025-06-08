@@ -67,28 +67,16 @@
     transition: width ease 0.3s;
     align-items: center;
     height: 16px;
-    width: var(--icon-width);
+    width: auto;
     overflow: hidden;
 
     .text {
       white-space: nowrap;
       padding-left: 5px;
-      opacity: 0;
-      transform: translateX(-5px);
+      opacity: 1;
+      transform: translateX(0);
       transition: all ease 0.3s;
       pointer-events: none;
-    }
-
-    &:hover {
-      --delay: 0.5s;
-      width: var(--full-width);
-      transition-delay: var(--delay);
-
-      .text {
-        transition-delay: var(--delay);
-        opacity: 1;
-        transform: translate(0);
-      }
     }
 
     .text,
@@ -100,16 +88,7 @@
   }
 
   .model-switch-button {
-    width: auto !important;
-    min-width: 130px !important;
-    background-color: var(--primary) !important;
-    color: white !important;
-    font-weight: bold !important;
-    
-    .text {
-      opacity: 1 !important;
-      transform: translate(0) !important;
-    }
+    // 保留空的选择器以便后续可能的自定义
   }
 }
 
@@ -766,6 +745,5 @@
 }
 
 .model-switch-icon {
-  transform: scale(1.2);
-  color: white;
+  // 保留空的选择器以便后续可能的自定义
 }
