@@ -98,6 +98,18 @@
       justify-content: center;
     }
   }
+
+  .model-switch-button {
+    width: var(--full-width) !important;
+    background-color: var(--primary) !important;
+    color: white !important;
+    font-weight: bold !important;
+    
+    .text {
+      opacity: 1 !important;
+      transform: translate(0) !important;
+    }
+  }
 }
 
 .prompt-toast {
@@ -750,4 +762,9 @@
       transform: translateX(0);
     }
   }
+}
+
+.model-switch-icon {
+  transform: scale(1.2);
+  color: white;
 }

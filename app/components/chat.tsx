@@ -405,6 +405,7 @@ export function ChatAction(props: {
   text: string;
   icon: JSX.Element;
   onClick: () => void;
+  className?: string;
 }) {
   const iconRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -426,7 +427,7 @@ export function ChatAction(props: {
 
   return (
     <div
-      className={clsx(styles["chat-input-action"], "clickable")}
+      className={clsx(styles["chat-input-action"], "clickable", props.className)}
       onClick={() => {
         props.onClick();
         setTimeout(updateWidth, 1);
@@ -675,8 +676,9 @@ export function ChatActions(props: {
 
         <ChatAction
           onClick={() => setShowModelSelector(true)}
-          text={currentModelName}
-          icon={<RobotIcon />}
+          text="点我切换模型"
+          icon={<RobotIcon className={styles["model-switch-icon"]} />}
+          className={styles["model-switch-button"]}
         />
 
         {showModelSelector && (
