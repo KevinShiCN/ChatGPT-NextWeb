@@ -1,0 +1,13 @@
+name: Vercel Deploy Notification
+
+on:
+  deployment_status:
+
+jobs:
+  send-notification:
+    runs-on: ubuntu-latest
+    if: github.event.deployment_status.state == 'success' && contains(github.event.deployment_status.environment, 'Production')
+    steps:
+      - name: Send Bark Notification
+        run: |
+          curl -X GET "https://api.day.app/xkjJ655M94DX66TmeDXYxW/NextChat项目已重新部署?group=Vercel" 
