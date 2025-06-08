@@ -8,6 +8,28 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Path } from "../constant";
+import Locale from "../locales";
+import styles from "./chat.module.scss";
+import { IconButton } from "./button";
+import {
+  List,
+  ListItem,
+  Modal,
+  Selector,
+  showConfirm,
+  showPrompt,
+  showToast,
+} from "./ui-lib";
+import {
+  CHAT_PAGE_SIZE,
+  DEFAULT_TTS_ENGINE,
+  ModelProvider,
+  REQUEST_TIMEOUT_MS,
+  ServiceProvider,
+  UNFINISHED_INPUT,
+} from "../constant";
 
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
@@ -84,30 +106,6 @@ import dynamic from "next/dynamic";
 import { ChatControllerPool } from "../client/controller";
 import { DalleQuality, DalleStyle, ModelSize } from "../typing";
 import { Prompt, usePromptStore } from "../store/prompt";
-import Locale from "../locales";
-
-import { IconButton } from "./button";
-import styles from "./chat.module.scss";
-
-import {
-  List,
-  ListItem,
-  Modal,
-  Selector,
-  showConfirm,
-  showPrompt,
-  showToast,
-} from "./ui-lib";
-import { useNavigate } from "react-router-dom";
-import {
-  CHAT_PAGE_SIZE,
-  DEFAULT_TTS_ENGINE,
-  ModelProvider,
-  Path,
-  REQUEST_TIMEOUT_MS,
-  ServiceProvider,
-  UNFINISHED_INPUT,
-} from "../constant";
 import { Avatar } from "./emoji";
 import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
 import { useMaskStore } from "../store/mask";
@@ -1343,6 +1341,13 @@ function _Chat() {
   const context: RenderMessage[] = useMemo(() => {
     return session.mask.hideContext ? [] : session.mask.context.slice();
   }, [session.mask.context, session.mask.hideContext]);
+
+  // 检查授权状态，如果未授权则自动跳转到auth页面
+  useEffect(() => {
+    if (!accessStore.isAuthorized()) {
+      navigate(Path.Auth);
+    }
+  }, []);
 
   if (
     context.length === 0 &&
