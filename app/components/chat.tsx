@@ -414,6 +414,8 @@ export function ChatAction(props: {
     icon: 16,
   });
 
+  const isModelSwitch = props.className?.includes("model-switch-button");
+
   function updateWidth() {
     if (!iconRef.current || !textRef.current) return;
     const getWidth = (dom: HTMLDivElement) => dom.getBoundingClientRect().width;
@@ -424,6 +426,13 @@ export function ChatAction(props: {
       icon: iconWidth,
     });
   }
+
+  // 组件挂载后更新宽度
+  useEffect(() => {
+    if (isModelSwitch) {
+      setTimeout(updateWidth, 10);
+    }
+  }, []);
 
   return (
     <div
@@ -437,7 +446,7 @@ export function ChatAction(props: {
       style={
         {
           "--icon-width": `${width.icon}px`,
-          "--full-width": `${width.full}px`,
+          "--full-width": isModelSwitch ? "auto" : `${width.full}px`,
         } as React.CSSProperties
       }
     >
