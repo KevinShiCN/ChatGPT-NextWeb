@@ -100,7 +100,8 @@
   }
 
   .model-switch-button {
-    width: var(--full-width) !important;
+    width: auto !important;
+    min-width: 130px !important;
     background-color: var(--primary) !important;
     color: white !important;
     font-weight: bold !important;
