@@ -576,7 +576,7 @@ const cn = {
         Title: "声音",
         SubTitle: "生成语音时使用的声音",
       },
-      加速: {
+      Speed: {
         Title: "速度",
         SubTitle: "生成语音的速度",
       },
@@ -617,7 +617,7 @@ const cn = {
   },
   Store: {
     DefaultTopic: "新的聊天",
-    BotHello: "请直接向我提问，默认使用深度思考模型，需要等待加载，转圈为正常表现。\\（也可以在输入框上从右往左数第三个机器人图标点击切换快速模型）",
+    BotHello: "有什么可以帮你的吗",
     Error: "出错了，稍后重试吧",
     Prompt: {
       History: (content: string) => "这是历史聊天总结作为前情提要：" + content,
