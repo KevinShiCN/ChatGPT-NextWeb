@@ -16,7 +16,6 @@ import LeftIcon from "@/app/icons/left.svg";
 import { safeLocalStorage } from "@/app/utils";
 import {
   trackSettingsPageGuideToCPaymentClick,
-  trackAuthorizationPageButtonToCPaymentClick,
 } from "../utils/auth-settings-events";
 import clsx from "clsx";
 
@@ -27,10 +26,6 @@ export function AuthPage() {
   const accessStore = useAccessStore();
   const goHome = () => navigate(Path.Home);
   const goChat = () => navigate(Path.Chat);
-  const goSaas = () => {
-    trackAuthorizationPageButtonToCPaymentClick();
-    window.location.href = SAAS_CHAT_URL;
-  };
 
   const resetAccessCode = () => {
     accessStore.update((access) => {
@@ -61,7 +56,12 @@ export function AuthPage() {
       </div>
 
       <div className={styles["auth-title"]}>{Locale.Auth.Title}</div>
-      <div className={styles["auth-tips"]}>{Locale.Auth.Tips}</div>
+      <div className={styles["auth-tips"]}>
+        {Locale.Auth.Tips} 
+        <p style={{ marginTop: "10px", fontSize: "14px" }}>
+          💡 输入访问码后，您可以在聊天界面右上角的 ⚙️ 设置中切换模型，或点击输入框上方的机器人图标 🤖 快速切换
+        </p>
+      </div>
 
       <PasswordInput
         style={{ marginTop: "3vh", marginBottom: "3vh" }}
@@ -114,12 +114,6 @@ export function AuthPage() {
           text={Locale.Auth.Confirm}
           type="primary"
           onClick={goChat}
-        />
-        <IconButton
-          text={Locale.Auth.SaasTips}
-          onClick={() => {
-            goSaas();
-          }}
         />
       </div>
     </div>
