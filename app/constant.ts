@@ -421,7 +421,7 @@ You are an AI assistant with access to system tools. Your role is to help users 
 `;
 
 export const SUMMARIZE_MODEL = "gpt-4o-mini";
-export const GEMINI_SUMMARIZE_MODEL = "gemini-pro";
+export const GEMINI_SUMMARIZE_MODEL = "gemini-2.5-flash";
 export const DEEPSEEK_SUMMARIZE_MODEL = "deepseek-chat";
 
 export const KnowledgeCutOffDate: Record<string, string> = {
@@ -459,6 +459,8 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gemini-pro-vision": "2023-12",
   "deepseek-chat": "2024-07",
   "deepseek-coder": "2024-07",
+  "gemini-2.5-pro": "2025-05",
+  "gemini-2.5-flash": "2025-05"
 };
 
 export const DEFAULT_TTS_ENGINE = "OpenAI-TTS";

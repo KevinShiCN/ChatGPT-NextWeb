@@ -1,0 +1,8 @@
+{
+    "env": {
+        "HTTP_PROXY": "http://127.0.0.1:7897",
+        "HTTPS_PROXY": "http://127.0.0.1:7897",
+        "ANTHROPIC_AUTH_TOKEN": "sk-FptqviB3qxC3xPphaY25O5Lx3fdBfMq1oVZltcoWH6mKNYWJ",
+        "ANTHROPIC_BASE_URL": "https://api.moonshot.cn/anthropic/"
+    }
+}
