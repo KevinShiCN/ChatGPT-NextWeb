@@ -455,8 +455,6 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "o3-mini": "2023-10",
   // After improvements,
   // it's now easier to add "KnowledgeCutOffDate" instead of stupid hardcoding it, as was done previously.
-  "gemini-pro": "2023-12",
-  "gemini-pro-vision": "2023-12",
   "deepseek-chat": "2024-07",
   "deepseek-coder": "2024-07",
   "gemini-2.5-pro": "2025-05",
