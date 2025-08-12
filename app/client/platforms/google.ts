@@ -156,7 +156,7 @@ export class GeminiProApi implements LLMApi {
         // stopSequences: [
         //   "Title"
         // ],
-        temperature: 1.4,
+        temperature: 0.9,
         maxOutputTokens: 65536,
         topP: modelConfig.top_p,
         // "topK": modelConfig.top_k,
