@@ -494,7 +494,6 @@ export async function logRequest(
       responseContent,
       errorMessage,
       sessionId: req.headers.get("x-session-id") || undefined,
-      userCode: extractUserCode(req),
     };
 
     await logger.logRequest(log);
