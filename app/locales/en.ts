@@ -654,6 +654,9 @@ const en: LocaleType = {
     Success: "Copied to clipboard",
     Failed: "Copy failed, please grant permission to access clipboard",
   },
+  Model: {
+    Using: (model: string) => `Currently using: ${model}`,
+  },
   Download: {
     Success: "Content downloaded to your directory.",
     Failed: "Download failed.",

@@ -204,6 +204,30 @@ export function isModelAvailableInServer(
 }
 
 /**
+ * Get display name for a model from the model table
+ * @param models Array of available models
+ * @param modelName The model name to find
+ * @param providerName The provider name (optional)
+ * @returns The display name if found, otherwise the original model name
+ */
+export function getModelDisplayName(
+  models: Array<{
+    name: string;
+    displayName?: string;
+    provider?: { providerName: string };
+  }>,
+  modelName: string,
+  providerName?: string,
+): string {
+  const model = models.find(
+    (m) =>
+      m.name === modelName &&
+      (!providerName || m.provider?.providerName === providerName),
+  );
+  return model?.displayName || modelName;
+}
+
+/**
  * Check if the model name is a GPT-4 related model
  *
  * @param modelName The name of the model to check

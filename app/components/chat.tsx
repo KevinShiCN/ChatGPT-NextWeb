@@ -8,7 +8,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Path } from "../constant";
 import Locale from "../locales";
 import styles from "./chat.module.scss";
@@ -434,7 +434,11 @@ export function ChatAction(props: {
 
   return (
     <div
-      className={clsx(styles["chat-input-action"], "clickable", props.className)}
+      className={clsx(
+        styles["chat-input-action"],
+        "clickable",
+        props.className,
+      )}
       onClick={() => {
         props.onClick();
         setTimeout(updateWidth, 1);
@@ -596,11 +600,7 @@ export function ChatActions(props: {
         session.mask.modelConfig.providerName = nextModel?.provider
           ?.providerName as ServiceProvider;
       });
-      showToast(
-        nextModel?.provider?.providerName == "ByteDance"
-          ? nextModel.displayName
-          : nextModel.name,
-      );
+      showToast(Locale.Model.Using(nextModel.displayName || nextModel.name));
     }
   }, [chatStore, currentModel, models, session]);
 
@@ -714,9 +714,9 @@ export function ChatActions(props: {
                     m.name == model &&
                     m?.provider?.providerName == providerName,
                 );
-                showToast(selectedModel?.displayName ?? "");
+                showToast(Locale.Model.Using(selectedModel?.displayName ?? ""));
               } else {
-                showToast(model);
+                showToast(Locale.Model.Using(model));
               }
             }}
           />

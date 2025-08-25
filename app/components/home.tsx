@@ -255,6 +255,7 @@ export function Home() {
         console.error("[MCP] failed to initialize:", err);
       }
     };
+
     initMcp();
   }, []);
 

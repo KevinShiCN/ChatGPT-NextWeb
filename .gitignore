@@ -49,3 +49,7 @@ masks.json
 
 # mcp config
 app/mcp/mcp_config.json
+
+# Claude Code local settings
+.claude/settings.local.json
+.claude/CLAUDE.md

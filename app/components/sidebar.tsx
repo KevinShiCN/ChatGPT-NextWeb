@@ -250,8 +250,8 @@ export function SideBar(props: { className?: string }) {
       {...props}
     >
       <SideBarHeader
-        title="NextChat"
-        subTitle="Build your own AI assistant."
+        title="饭小导AI工作台"
+        subTitle="饭导企业内部专用AI机器人平台"
         logo={<ChatGptIcon />}
         shouldNarrow={shouldNarrow}
       >
@@ -261,11 +261,8 @@ export function SideBar(props: { className?: string }) {
             text={shouldNarrow ? undefined : Locale.Mask.Name}
             className={styles["sidebar-bar-button"]}
             onClick={() => {
-              if (config.dontShowMaskSplashScreen !== true) {
-                navigate(Path.NewChat, { state: { fromHome: true } });
-              } else {
-                navigate(Path.Masks, { state: { fromHome: true } });
-              }
+              // 强制跳过面具选择，直接进入面具管理页面
+              navigate(Path.Masks, { state: { fromHome: true } });
             }}
             shadow
           />
@@ -352,12 +349,9 @@ export function SideBar(props: { className?: string }) {
             icon={<AddIcon />}
             text={shouldNarrow ? undefined : Locale.Home.NewChat}
             onClick={() => {
-              if (config.dontShowMaskSplashScreen) {
-                chatStore.newSession();
-                navigate(Path.Chat);
-              } else {
-                navigate(Path.NewChat);
-              }
+              // 强制跳过面具选择，直接开始新聊天
+              chatStore.newSession();
+              navigate(Path.Chat);
             }}
             shadow
           />
