@@ -535,7 +535,7 @@ export const useChatStore = createPersistStore(
             console.error("[Chat] Request failed with error:", {
               error: error.message,
               timestamp: new Date().toISOString(),
-              provider: providerName,
+              provider: modelConfig.providerName,
               model: modelConfig.model,
               isAborted: isAborted,
               userMessageLength: userMessage.content.length,
