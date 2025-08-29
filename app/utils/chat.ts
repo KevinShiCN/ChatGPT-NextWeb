@@ -200,6 +200,15 @@ export function stream(
       responseText += remainText;
       console.log("[Response Animation] finished");
       if (responseText?.length === 0) {
+        // 记录更详细的错误信息
+        console.error("[Chat] Empty response error details:", {
+          url: chatPath,
+          requestTime: new Date().toISOString(),
+          controller_signal_aborted: controller.signal.aborted,
+          finished: finished,
+          remainText_length: remainText.length,
+          responseText_length: responseText.length,
+        });
         options.onError?.(new Error("empty response from server"));
       }
       return;
@@ -426,6 +435,15 @@ export function streamWithThink(
       responseText += remainText;
       console.log("[Response Animation] finished");
       if (responseText?.length === 0) {
+        // 记录更详细的错误信息
+        console.error("[Chat] Empty response error details:", {
+          url: chatPath,
+          requestTime: new Date().toISOString(),
+          controller_signal_aborted: controller.signal.aborted,
+          finished: finished,
+          remainText_length: remainText.length,
+          responseText_length: responseText.length,
+        });
         options.onError?.(new Error("empty response from server"));
       }
       return;

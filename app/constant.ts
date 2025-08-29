@@ -112,7 +112,7 @@ export const UNFINISHED_INPUT = (id: string) => "unfinished-input-" + id;
 
 export const STORAGE_KEY = "chatgpt-next-web";
 
-export const REQUEST_TIMEOUT_MS = 60000;
+export const REQUEST_TIMEOUT_MS = 120000;
 export const REQUEST_TIMEOUT_MS_FOR_THINKING = REQUEST_TIMEOUT_MS * 5;
 
 export const EXPORT_MESSAGE_CLASS_NAME = "export-markdown";
@@ -458,7 +458,7 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "deepseek-chat": "2024-07",
   "deepseek-coder": "2024-07",
   "gemini-2.5-pro": "2025-05",
-  "gemini-2.5-flash": "2025-05"
+  "gemini-2.5-flash": "2025-05",
 };
 
 export const DEFAULT_TTS_ENGINE = "OpenAI-TTS";
@@ -493,7 +493,7 @@ export const VISION_MODEL_REGEXES = [
   /o3/,
   /o4-mini/,
   /grok-4/i,
-  /gpt-5/
+  /gpt-5/,
 ];
 
 export const EXCLUDE_VISION_MODEL_REGEXES = [/claude-3-5-haiku-20241022/];

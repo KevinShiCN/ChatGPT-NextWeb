@@ -497,11 +497,28 @@ export const useChatStore = createPersistStore(
           },
           onError(error) {
             const isAborted = error.message?.includes?.("aborted");
+
+            // 创建用户友好的错误消息
+            let userFriendlyMessage = error.message;
+            if (error.message?.includes?.("empty response from server")) {
+              userFriendlyMessage =
+                "出错啦，请重试。如持续出现错误，请联系石佳文";
+            } else if (error.message?.includes?.("timeout")) {
+              userFriendlyMessage =
+                "请求超时，请重试。如持续出现错误，请联系石佳文";
+            } else if (error.message?.includes?.("network")) {
+              userFriendlyMessage =
+                "网络连接异常，请重试。如持续出现错误，请联系石佳文";
+            } else if (error.message?.includes?.("fetch")) {
+              userFriendlyMessage =
+                "连接服务器失败，请重试。如持续出现错误，请联系石佳文";
+            }
+
             botMessage.content +=
               "\n\n" +
               prettyObject({
                 error: true,
-                message: error.message,
+                message: userFriendlyMessage,
               });
             botMessage.streaming = false;
             userMessage.isError = !isAborted;
@@ -513,6 +530,17 @@ export const useChatStore = createPersistStore(
               session.id,
               botMessage.id ?? messageIndex,
             );
+
+            // 记录失败请求的详细信息
+            console.error("[Chat] Request failed with error:", {
+              error: error.message,
+              timestamp: new Date().toISOString(),
+              provider: providerName,
+              model: modelConfig.model,
+              isAborted: isAborted,
+              userMessageLength: userMessage.content.length,
+              requestStack: error.stack,
+            });
 
             console.error("[Chat] failed ", error);
           },
