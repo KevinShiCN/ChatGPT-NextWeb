@@ -7,10 +7,10 @@ module.exports = {
     autorestart: true,
     watch: false,
     max_memory_restart: '1G',
-    env_file: '.env',  // 自动加载 .env 文件
     env: {
       NODE_ENV: 'production',
-      PORT: process.env.PORT || 37405,  // 使用 .env 中的 PORT
+      // 直接设置 PORT 为 37405
+      PORT: '37405',
     },
     error_file: './logs/err.log',
     out_file: './logs/out.log',
