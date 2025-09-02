@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# ChatGPT-Next-Web 部署脚本
-# 用于在服务器上初次设置和后续更新部署
+# ChatGPT-Next-Web 手动部署脚本
+# 用于在服务器上手动拉取最新代码并部署
 
 set -e  # 遇到错误立即退出
 
@@ -10,6 +10,7 @@ PROJECT_DIR="/var/www/chatgpt-next-web"
 REPO_URL="https://github.com/YOUR_USERNAME/ChatGPT-NextWeb.git"  # 替换为你的仓库地址
 BRANCH="main"
 NODE_VERSION="18"  # Node.js 版本
+ENV_FILE="$PROJECT_DIR/.env"  # 环境变量文件
 
 # 颜色输出
 RED='\033[0;31m'
