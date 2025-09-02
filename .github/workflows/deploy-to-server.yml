@@ -1,0 +1,61 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'yarn'
+    
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+    
+    - name: Build project
+      run: yarn build
+      env:
+        # 这里添加构建时需要的环境变量
+        # 从 GitHub Secrets 中读取
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        CODE: ${{ secrets.CODE }}
+        BASE_URL: ${{ secrets.BASE_URL }}
+        OPENAI_ORG_ID: ${{ secrets.OPENAI_ORG_ID }}
+        VERCEL_URL: ${{ secrets.VERCEL_URL }}
+        DISABLE_CHUNK: ${{ secrets.DISABLE_CHUNK }}
+    
+    - name: Deploy to server
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        port: ${{ secrets.SERVER_PORT }}
+        script: |
+          # 进入项目目录
+          cd /var/www/chatgpt-next-web
+          
+          # 拉取最新代码
+          git pull origin main
+          
+          # 安装依赖
+          yarn install --frozen-lockfile
+          
+          # 构建项目
+          yarn build
+          
+          # 重启应用（使用 PM2）
+          pm2 restart chatgpt-next-web || pm2 start yarn --name "chatgpt-next-web" -- start
+          
+          # 保存 PM2 配置
+          pm2 save
