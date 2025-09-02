@@ -9,8 +9,9 @@ module.exports = {
     max_memory_restart: '1G',
     env: {
       NODE_ENV: 'production',
-      // 直接设置 PORT 为 37405
-      PORT: '37405',
+      PORT: 37405,
+      // 在这里添加你的环境变量
+      // 建议使用 .env 文件管理
     },
     error_file: './logs/err.log',
     out_file: './logs/out.log',
