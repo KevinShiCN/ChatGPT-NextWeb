@@ -100,6 +100,15 @@ export function fetch(url: string, options?: RequestInit): Promise<Response> {
       })
       .catch((e) => {
         console.error("stream error", e);
+        console.error("stream error details:", {
+          name: e.name,
+          message: e.message,
+          stack: e.stack,
+          cause: e.cause,
+          url: url,
+          method: method,
+          timestamp: new Date().toISOString(),
+        });
         // 保留原始错误信息而不是返回通用的599状态码
         throw new Error(`网络请求失败: ${e.message || e.toString()}`);
       });

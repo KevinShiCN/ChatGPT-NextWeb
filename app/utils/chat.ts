@@ -389,6 +389,16 @@ export function stream(
       },
       onerror(e) {
         console.error("[Request] network error:", e);
+        console.error("[Request] detailed error info:", {
+          name: e.name,
+          message: e.message,
+          stack: e.stack,
+          cause: e.cause,
+          url: chatPath,
+          timestamp: new Date().toISOString(),
+          type: typeof e,
+          constructor: e.constructor?.name,
+        });
         // 为网络错误提供更具体的错误信息
         const networkError = new Error(
           `网络请求失败: ${e.message || e.toString()}`,
@@ -680,6 +690,16 @@ export function streamWithThink(
       },
       onerror(e) {
         console.error("[Request] network error:", e);
+        console.error("[Request] detailed error info:", {
+          name: e.name,
+          message: e.message,
+          stack: e.stack,
+          cause: e.cause,
+          url: chatPath,
+          timestamp: new Date().toISOString(),
+          type: typeof e,
+          constructor: e.constructor?.name,
+        });
         // 为网络错误提供更具体的错误信息
         const networkError = new Error(
           `网络请求失败: ${e.message || e.toString()}`,

@@ -45,7 +45,23 @@ export async function handle(
     return response;
   } catch (e) {
     console.error("[Google] ", e);
-    return NextResponse.json(prettyObject(e));
+    console.error("[Google] Error details:", {
+      name: e.name,
+      message: e.message,
+      stack: e.stack,
+      cause: e.cause,
+      timestamp: new Date().toISOString(),
+      url: req.url,
+      method: req.method,
+    });
+    return NextResponse.json(
+      {
+        error: true,
+        message: `Google API 请求失败: ${e.message || e.toString()}`,
+        details: e.name || "UnknownError",
+      },
+      { status: 500 },
+    );
   }
 }
 
@@ -103,6 +119,22 @@ async function request(req: NextRequest, apiKey: string) {
 
   try {
     const res = await fetch(fetchUrl, fetchOptions);
+
+    // 记录响应状态
+    console.log("[Google] Response status:", res.status, res.statusText);
+
+    // 如果不是成功状态码，记录详细信息
+    if (!res.ok) {
+      const errorText = await res.clone().text();
+      console.error("[Google] API Error Response:", {
+        status: res.status,
+        statusText: res.statusText,
+        body: errorText,
+        url: fetchUrl,
+        timestamp: new Date().toISOString(),
+      });
+    }
+
     // to prevent browser prompt for credentials
     const newHeaders = new Headers(res.headers);
     newHeaders.delete("www-authenticate");
@@ -114,6 +146,17 @@ async function request(req: NextRequest, apiKey: string) {
       statusText: res.statusText,
       headers: newHeaders,
     });
+  } catch (fetchError) {
+    console.error("[Google] Fetch Error:", {
+      name: fetchError.name,
+      message: fetchError.message,
+      stack: fetchError.stack,
+      url: fetchUrl,
+      timestamp: new Date().toISOString(),
+    });
+    throw new Error(
+      `网络请求失败: ${fetchError.message || fetchError.toString()}`,
+    );
   } finally {
     clearTimeout(timeoutId);
   }
