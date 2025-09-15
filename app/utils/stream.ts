@@ -100,8 +100,8 @@ export function fetch(url: string, options?: RequestInit): Promise<Response> {
       })
       .catch((e) => {
         console.error("stream error", e);
-        // throw e;
-        return new Response("", { status: 599 });
+        // 保留原始错误信息而不是返回通用的599状态码
+        throw new Error(`网络请求失败: ${e.message || e.toString()}`);
       });
   }
   return window.fetch(url, options);

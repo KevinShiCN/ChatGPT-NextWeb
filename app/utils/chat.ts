@@ -388,8 +388,13 @@ export function stream(
         finish();
       },
       onerror(e) {
-        options?.onError?.(e);
-        throw e;
+        console.error("[Request] network error:", e);
+        // 为网络错误提供更具体的错误信息
+        const networkError = new Error(
+          `网络请求失败: ${e.message || e.toString()}`,
+        );
+        options?.onError?.(networkError);
+        throw networkError;
       },
       openWhenHidden: true,
     });
@@ -674,8 +679,13 @@ export function streamWithThink(
         finish();
       },
       onerror(e) {
-        options?.onError?.(e);
-        throw e;
+        console.error("[Request] network error:", e);
+        // 为网络错误提供更具体的错误信息
+        const networkError = new Error(
+          `网络请求失败: ${e.message || e.toString()}`,
+        );
+        options?.onError?.(networkError);
+        throw networkError;
       },
       openWhenHidden: true,
     });

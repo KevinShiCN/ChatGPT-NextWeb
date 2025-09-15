@@ -506,6 +506,9 @@ export const useChatStore = createPersistStore(
             } else if (error.message?.includes?.("timeout")) {
               userFriendlyMessage =
                 "请求超时，请重试。如持续出现错误，请联系石佳文";
+            } else if (error.message?.includes?.("网络请求失败")) {
+              // 保留具体的网络错误信息
+              userFriendlyMessage = error.message;
             } else if (error.message?.includes?.("network")) {
               userFriendlyMessage =
                 "网络连接异常，请重试。如持续出现错误，请联系石佳文";
