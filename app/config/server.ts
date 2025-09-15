@@ -113,12 +113,14 @@ const ACCESS_CODES = (function getAccessCodes(): Set<string> {
   }
 })();
 
-function getApiKey(keys?: string) {
+function getApiKey(keys?: string, logSelection = false) {
   const apiKeyEnvVar = keys ?? "";
   const apiKeys = apiKeyEnvVar.split(",").map((v) => v.trim());
   const randomIndex = Math.floor(Math.random() * apiKeys.length);
   const apiKey = apiKeys[randomIndex];
-  if (apiKey) {
+
+  // 只在明确需要时或首次初始化时记录日志
+  if (apiKey && logSelection && process.env.NODE_ENV !== "production") {
     console.log(
       `[Server Config] using ${randomIndex + 1} of ${apiKeys.length} api key`,
     );
