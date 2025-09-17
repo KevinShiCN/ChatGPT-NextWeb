@@ -1,8 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./auth";
 import { getServerSideConfig } from "@/app/config/server";
 import { ApiPath, GEMINI_BASE_URL, ModelProvider } from "@/app/constant";
-import { prettyObject } from "@/app/utils/format";
 
 const serverConfig = getServerSideConfig();
 
@@ -33,7 +32,7 @@ export async function handle(
     return NextResponse.json(
       {
         error: true,
-        message: `missing GOOGLE_API_KEY in server env vars`,
+        message: "missing GOOGLE_API_KEY in server env vars",
       },
       {
         status: 401,
@@ -120,10 +119,10 @@ async function request(req: NextRequest, apiKey: string) {
   try {
     const res = await fetch(fetchUrl, fetchOptions);
 
-    // 记录响应状态
+    // Log response status
     console.log("[Google] Response status:", res.status, res.statusText);
 
-    // 如果不是成功状态码，记录详细信息
+    // Log details when status is not ok
     if (!res.ok) {
       const errorText = await res.clone().text();
       console.error("[Google] API Error Response:", {
@@ -138,6 +137,8 @@ async function request(req: NextRequest, apiKey: string) {
     // to prevent browser prompt for credentials
     const newHeaders = new Headers(res.headers);
     newHeaders.delete("www-authenticate");
+    newHeaders.delete("content-encoding");
+    newHeaders.delete("content-length");
     // to disable nginx buffering
     newHeaders.set("X-Accel-Buffering", "no");
 
