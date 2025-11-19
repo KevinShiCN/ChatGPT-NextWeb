@@ -43,12 +43,13 @@ export async function handle(
     const response = await request(req, apiKey);
     return response;
   } catch (e) {
-    console.error("[Google] ", e);
+    const error = e as Error;
+    console.error("[Google] ", error);
     console.error("[Google] Error details:", {
-      name: e.name,
-      message: e.message,
-      stack: e.stack,
-      cause: e.cause,
+      name: error.name,
+      message: error.message,
+      stack: error.stack,
+      cause: error.cause,
       timestamp: new Date().toISOString(),
       url: req.url,
       method: req.method,
@@ -56,8 +57,8 @@ export async function handle(
     return NextResponse.json(
       {
         error: true,
-        message: `Google API 请求失败: ${e.message || e.toString()}`,
-        details: e.name || "UnknownError",
+        message: `Google API 请求失败: ${error.message || String(error)}`,
+        details: error.name || "UnknownError",
       },
       { status: 500 },
     );
