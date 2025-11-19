@@ -52,21 +52,13 @@ export async function handle(
 export const GET = handle;
 export const POST = handle;
 
-export const runtime = "edge";
-export const preferredRegion = [
-  "bom1",
-  "cle1",
-  "cpt1",
-  "gru1",
-  "hnd1",
-  "iad1",
-  "icn1",
-  "kix1",
-  "pdx1",
-  "sfo1",
-  "sin1",
-  "syd1",
-];
+// 使用 Node.js Runtime 以支持更长的执行时间
+// 注意：实际超时限制取决于你的 Vercel 计划
+// - Hobby Plan: 最大 10 秒（即使设置 300，也只有 10 秒）
+// - Pro Plan: 最大 60 秒
+// - Enterprise: 最大 900 秒
+export const runtime = "nodejs";
+export const maxDuration = 300; // 5 分钟（实际生效时间取决于 Vercel 计划）
 
 async function request(req: NextRequest, apiKey: string) {
   const controller = new AbortController();
