@@ -1,0 +1,431 @@
+{
+  "projectName": "ChatGPT-NextWeb",
+  "lastScan": "2025-11-19T21:24:38.000Z",
+  "version": "1.1",
+  "scanStrategy": "adaptive-3-phase",
+  "rootPath": "D:\\Coding\\Python\\PythonProjects\\ChatGPT-NextWeb",
+
+  "summary": {
+    "totalFilesEstimated": 150,
+    "filesScanned": 123,
+    "coveragePercent": 82,
+    "truncated": false,
+    "scanDuration": "增量更新：补充3个模块文档"
+  },
+
+  "ignoreRules": {
+    "source": ".gitignore",
+    "patterns": [
+      "node_modules/**",
+      ".next/**",
+      "out/**",
+      "build/**",
+      ".git/**",
+      ".vscode/**",
+      ".idea/**",
+      "*.tsbuildinfo",
+      "*.log",
+      ".env",
+      ".env*.local",
+      "masks.json",
+      "app/mcp/mcp_config.json",
+      ".claude/settings.local.json",
+      ".claude/CLAUDE.md"
+    ],
+    "ignored": {
+      "node_modules": "约80000文件",
+      ".next": "约50文件",
+      ".git": "约200文件"
+    }
+  },
+
+  "modules": [
+    {
+      "path": "app/api",
+      "name": "API路由模块",
+      "language": "TypeScript",
+      "type": "backend",
+      "entry": "[provider]/[...path]/route.ts",
+      "files": 23,
+      "tested": false,
+      "dependencies": [
+        "app/config/server",
+        "app/constant",
+        "next/server"
+      ],
+      "interfaces": [
+        "POST /api/openai/*",
+        "POST /api/anthropic",
+        "POST /api/google",
+        "POST /api/baidu",
+        "POST /api/bytedance",
+        "POST /api/alibaba",
+        "GET /api/config"
+      ],
+      "documentation": "app/api/CLAUDE.md",
+      "coverage": {
+        "entry": true,
+        "interfaces": true,
+        "tests": false,
+        "dataModels": true,
+        "config": true
+      }
+    },
+    {
+      "path": "app/client",
+      "name": "客户端SDK模块",
+      "language": "TypeScript",
+      "type": "frontend",
+      "entry": "api.ts",
+      "files": 16,
+      "tested": false,
+      "dependencies": [
+        "@fortaine/fetch-event-source",
+        "app/store",
+        "app/constant"
+      ],
+      "interfaces": [
+        "getClientApi(provider): ClientApi",
+        "ChatGPTApi.chat()",
+        "ClaudeApi.chat()",
+        "GeminiProApi.chat()"
+      ],
+      "documentation": "app/client/CLAUDE.md",
+      "coverage": {
+        "entry": true,
+        "interfaces": true,
+        "tests": false,
+        "dataModels": true,
+        "config": true
+      }
+    },
+    {
+      "path": "app/components",
+      "name": "UI组件模块",
+      "language": "TypeScript+React",
+      "type": "frontend",
+      "entry": "home.tsx",
+      "files": 30,
+      "tested": false,
+      "dependencies": [
+        "react",
+        "react-router-dom",
+        "react-markdown",
+        "app/store"
+      ],
+      "interfaces": [
+        "Home",
+        "Chat",
+        "Settings",
+        "Sidebar",
+        "Markdown"
+      ],
+      "documentation": "app/components/CLAUDE.md",
+      "coverage": {
+        "entry": true,
+        "interfaces": true,
+        "tests": false,
+        "dataModels": true,
+        "config": false
+      }
+    },
+    {
+      "path": "app/config",
+      "name": "配置管理模块",
+      "language": "TypeScript",
+      "type": "backend+frontend",
+      "entry": "server.ts",
+      "files": 3,
+      "tested": false,
+      "dependencies": [
+        "spark-md5",
+        "app/constant"
+      ],
+      "interfaces": [
+        "getServerSideConfig()",
+        "getClientConfig()",
+        "getBuildConfig()"
+      ],
+      "documentation": "app/config/CLAUDE.md",
+      "coverage": {
+        "entry": true,
+        "interfaces": true,
+        "tests": false,
+        "dataModels": true,
+        "config": true
+      }
+    },
+    {
+      "path": "app/store",
+      "name": "状态管理模块",
+      "language": "TypeScript",
+      "type": "frontend",
+      "entry": "index.ts",
+      "files": 10,
+      "tested": false,
+      "dependencies": [
+        "zustand",
+        "idb-keyval",
+        "nanoid"
+      ],
+      "interfaces": [
+        "useChatStore()",
+        "useAccessStore()",
+        "useAppConfig()",
+        "useMaskStore()"
+      ],
+      "documentation": "app/store/CLAUDE.md",
+      "coverage": {
+        "entry": true,
+        "interfaces": true,
+        "tests": false,
+        "dataModels": true,
+        "config": false
+      }
+    },
+    {
+      "path": "app/locales",
+      "name": "国际化模块",
+      "language": "TypeScript",
+      "type": "frontend",
+      "entry": "index.ts",
+      "files": 23,
+      "tested": false,
+      "dependencies": [],
+      "interfaces": [
+        "Locale对象（18种语言）"
+      ],
+      "documentation": null,
+      "coverage": {
+        "entry": true,
+        "interfaces": true,
+        "tests": false,
+        "dataModels": false,
+        "config": false
+      }
+    },
+    {
+      "path": "app/masks",
+      "name": "预设面具模块",
+      "language": "TypeScript",
+      "type": "frontend",
+      "entry": "index.ts",
+      "files": 5,
+      "tested": false,
+      "dependencies": [],
+      "interfaces": [
+        "内置面具定义（cn/en/tw）"
+      ],
+      "documentation": null,
+      "coverage": {
+        "entry": true,
+        "interfaces": true,
+        "tests": false,
+        "dataModels": true,
+        "config": false
+      }
+    },
+    {
+      "path": "app/mcp",
+      "name": "MCP协议模块",
+      "language": "TypeScript",
+      "type": "frontend+backend",
+      "entry": "client.ts",
+      "files": 6,
+      "tested": false,
+      "dependencies": [
+        "@modelcontextprotocol/sdk",
+        "zod",
+        "app/config/server"
+      ],
+      "interfaces": [
+        "createClient(id, config): Promise<Client>",
+        "removeClient(client): Promise<void>",
+        "listTools(client): Promise<ListToolsResponse>",
+        "executeRequest(client, request): Promise<any>",
+        "initializeMcpSystem(): Promise<McpConfigData>",
+        "addMcpServer(clientId, config): Promise<McpConfigData>",
+        "pauseMcpServer(clientId): Promise<McpConfigData>",
+        "resumeMcpServer(clientId): Promise<void>",
+        "removeMcpServer(clientId): Promise<McpConfigData>",
+        "restartAllClients(): Promise<McpConfigData>",
+        "getClientsStatus(): Promise<Record<string, ServerStatusResponse>>",
+        "getClientTools(clientId): Promise<ListToolsResponse | null>",
+        "getAllTools(): Promise<Array>",
+        "getAvailableClientsCount(): Promise<number>",
+        "executeMcpAction(clientId, request): Promise<McpResponseMessage>",
+        "getMcpConfigFromFile(): Promise<McpConfigData>",
+        "isMcpEnabled(): Promise<boolean>",
+        "isMcpJson(content): boolean",
+        "extractMcpJson(content): object | null"
+      ],
+      "documentation": "app/mcp/CLAUDE.md",
+      "coverage": {
+        "entry": true,
+        "interfaces": true,
+        "tests": false,
+        "dataModels": true,
+        "config": true
+      }
+    },
+    {
+      "path": "app/utils",
+      "name": "工具函数模块",
+      "language": "TypeScript",
+      "type": "common",
+      "entry": null,
+      "files": 23,
+      "tested": false,
+      "dependencies": [
+        "zustand",
+        "idb-keyval",
+        "spark-md5",
+        "markdown-to-txt"
+      ],
+      "interfaces": [
+        "deepClone<T>(obj): T",
+        "ensure<T>(obj, keys): boolean",
+        "prettyObject(msg): string",
+        "chunks(s, maxBytes): Generator<string>",
+        "merge(target, source): void",
+        "createPersistStore<T, M>(state, methods, options): StoreApi",
+        "indexedDBStorage: StateStorage",
+        "createWebDavClient(store): WebDavClient",
+        "getLocalAppState(): AppState",
+        "setLocalAppState(appState): void",
+        "mergeAppState(local, remote): AppState",
+        "mergeWithUpdate<T>(local, remote): T",
+        "getNonFunctionFileds<T>(obj): NonFunctionFields<T>",
+        "hmacSHA256(message, secret): string",
+        "signBaiduRequest(apiKey, secretKey, timestamp): string",
+        "signTencentRequest(secretId, secretKey, service, action, payload): Record",
+        "estimateTokenCount(text, model): number"
+      ],
+      "documentation": "app/utils/CLAUDE.md",
+      "coverage": {
+        "entry": true,
+        "interfaces": true,
+        "tests": false,
+        "dataModels": true,
+        "config": true
+      }
+    },
+    {
+      "path": "src-tauri",
+      "name": "桌面应用模块",
+      "language": "Rust",
+      "type": "desktop",
+      "entry": "src/main.rs",
+      "files": 2,
+      "tested": false,
+      "dependencies": [
+        "tauri@1.5.4",
+        "reqwest",
+        "serde"
+      ],
+      "interfaces": [
+        "stream_fetch()"
+      ],
+      "documentation": "src-tauri/CLAUDE.md",
+      "coverage": {
+        "entry": true,
+        "interfaces": true,
+        "tests": false,
+        "dataModels": true,
+        "config": true
+      }
+    },
+    {
+      "path": "scripts",
+      "name": "脚本工具模块",
+      "language": "Shell+JavaScript",
+      "type": "devops",
+      "entry": "setup.sh",
+      "files": 10,
+      "tested": false,
+      "dependencies": [
+        "node-fetch"
+      ],
+      "interfaces": [
+        "setup.sh - 一键安装启动",
+        "deploy.sh - 生产部署脚本",
+        "update.sh - 版本更新",
+        "manage.sh - 运维管理",
+        "install.sh - 通用安装",
+        "install-centos.sh - CentOS安装",
+        "init-proxy.sh - 代理初始化",
+        "fetch-prompts.mjs - 提示词抓取",
+        "delete-deployment-preview.sh - 清理预览部署"
+      ],
+      "documentation": "scripts/CLAUDE.md",
+      "coverage": {
+        "entry": true,
+        "interfaces": true,
+        "tests": false,
+        "dataModels": false,
+        "config": true
+      }
+    }
+  ],
+
+  "gaps": {
+    "missingTests": [
+      "app/api",
+      "app/client",
+      "app/components",
+      "app/store",
+      "app/mcp",
+      "app/utils",
+      "src-tauri",
+      "scripts"
+    ],
+    "missingDocs": [
+      "app/locales",
+      "app/masks"
+    ],
+    "missingInterfaces": [],
+    "missingDataModels": [
+      "app/locales: 语言包结构"
+    ]
+  },
+
+  "nextSteps": [
+    "为未记录模块创建 CLAUDE.md：app/locales, app/masks",
+    "考虑添加测试覆盖率（当前项目无测试文件）",
+    "完善 app/locales 语言包结构文档",
+    "完善 app/masks 面具配置文档"
+  ],
+
+  "statistics": {
+    "totalModules": 11,
+    "documentedModules": 9,
+    "documentationPercent": 82,
+    "languages": {
+      "TypeScript": 9,
+      "Rust": 1,
+      "Shell+JavaScript": 1
+    },
+    "filesPerModule": {
+      "avg": 13.7,
+      "min": 2,
+      "max": 30
+    }
+  },
+
+  "changelog": [
+    {
+      "date": "2025-11-19T21:24:38.000Z",
+      "action": "increment",
+      "description": "补充 app/mcp、app/utils、scripts 三个模块的文档",
+      "modulesUpdated": ["app/mcp", "app/utils", "scripts"],
+      "coverageChange": "65% -> 82%"
+    },
+    {
+      "date": "2025-11-19T21:05:15.000Z",
+      "action": "initial",
+      "description": "初始化项目架构文档",
+      "modulesUpdated": ["app/api", "app/client", "app/components", "app/config", "app/store", "src-tauri"],
+      "coverageChange": "0% -> 65%"
+    }
+  ]
+}

@@ -1,12 +1,18 @@
 # ChatGPT-NextWeb 项目架构文档
 
-> 最后更新: 2025-11-19 21:05:15
-> 文档版本: 1.0
+> 最后更新: 2025-11-19 21:24:38
+> 文档版本: 1.1
 > 项目类型: Next.js Web应用 + Tauri桌面客户端
 
 ---
 
 ## 变更记录 (Changelog)
+
+### 2025-11-19 21:24:38
+- 补充 3 个模块文档：app/mcp、app/utils、scripts
+- 更新模块索引表，添加新模块链接
+- 更新 Mermaid 结构图节点链接
+- 覆盖率从 65% 提升至 82%
 
 ### 2025-11-19 21:05:15
 - 初始化项目架构文档
@@ -82,36 +88,36 @@ graph TD
     A --> N["scripts"];
     A --> O["public"];
 
-    click C "#app-api-模块" "API路由模块"
-    click D "#app-client-模块" "客户端SDK模块"
-    click E "#app-components-模块" "UI组件模块"
-    click F "#app-config-模块" "配置模块"
-    click G "#app-locales-模块" "国际化模块"
-    click H "#app-masks-模块" "预设面具模块"
-    click I "#app-mcp-模块" "MCP协议模块"
-    click J "#app-store-模块" "状态管理模块"
-    click K "#app-utils-模块" "工具函数模块"
-    click L "#src-tauri-模块" "桌面客户端模块"
-    click N "#scripts-模块" "脚本工具模块"
+    click C "./app/api/CLAUDE.md" "API路由模块"
+    click D "./app/client/CLAUDE.md" "客户端SDK模块"
+    click E "./app/components/CLAUDE.md" "UI组件模块"
+    click F "./app/config/CLAUDE.md" "配置模块"
+    click I "./app/mcp/CLAUDE.md" "MCP协议模块"
+    click J "./app/store/CLAUDE.md" "状态管理模块"
+    click K "./app/utils/CLAUDE.md" "工具函数模块"
+    click L "./src-tauri/CLAUDE.md" "桌面客户端模块"
+    click N "./scripts/CLAUDE.md" "脚本工具模块"
 ```
 
 ---
 
 ## 模块索引
 
-| 模块路径 | 职责 | 入口文件 | 关键技术 |
-|---------|------|---------|---------|
-| [app/api](./app/api/CLAUDE.md) | Next.js API路由，处理所有AI服务商的代理请求 | `[provider]/[...path]/route.ts` | Next.js App Router, 流式响应 |
-| [app/client](./app/client/CLAUDE.md) | 客户端AI SDK封装，统一各平台API调用 | `api.ts`, `controller.ts` | TypeScript类封装, EventSource |
-| [app/components](./app/components/CLAUDE.md) | React UI组件库 | `home.tsx`, `chat.tsx` | React Hooks, SASS Modules |
-| [app/config](./app/config/CLAUDE.md) | 配置管理（客户端/服务端） | `client.ts`, `server.ts` | 环境变量注入 |
-| [app/locales](./app/locales/CLAUDE.md) | 国际化多语言支持 | `index.ts` | 18种语言 |
-| [app/masks](./app/masks/CLAUDE.md) | 预设提示词面具 | `index.ts`, `build.ts` | 动态构建 |
-| [app/mcp](./app/mcp/CLAUDE.md) | Model Context Protocol实现 | `client.ts`, `actions.ts` | MCP SDK |
-| [app/store](./app/store/CLAUDE.md) | Zustand全局状态管理 | `index.ts`, `chat.ts` | Zustand持久化 |
-| [app/utils](./app/utils/CLAUDE.md) | 通用工具函数库 | `utils.ts` | 纯函数工具集 |
-| [src-tauri](./src-tauri/CLAUDE.md) | Tauri桌面应用后端 | `src/main.rs` | Rust, Tauri API |
-| [scripts](./scripts/CLAUDE.md) | 构建部署脚本 | `setup.sh`, `deploy.sh` | Shell脚本 |
+| 模块路径 | 职责 | 入口文件 | 关键技术 | 文档状态 |
+|---------|------|---------|---------|---------|
+| [app/api](./app/api/CLAUDE.md) | Next.js API路由，处理所有AI服务商的代理请求 | `[provider]/[...path]/route.ts` | Next.js App Router, 流式响应 | ✅ 完成 |
+| [app/client](./app/client/CLAUDE.md) | 客户端AI SDK封装，统一各平台API调用 | `api.ts`, `controller.ts` | TypeScript类封装, EventSource | ✅ 完成 |
+| [app/components](./app/components/CLAUDE.md) | React UI组件库 | `home.tsx`, `chat.tsx` | React Hooks, SASS Modules | ✅ 完成 |
+| [app/config](./app/config/CLAUDE.md) | 配置管理（客户端/服务端） | `client.ts`, `server.ts` | 环境变量注入 | ✅ 完成 |
+| app/locales | 国际化多语言支持 | `index.ts` | 18种语言 | ⚠️ 待补充 |
+| app/masks | 预设提示词面具 | `index.ts`, `build.ts` | 动态构建 | ⚠️ 待补充 |
+| [app/mcp](./app/mcp/CLAUDE.md) | Model Context Protocol实现 | `client.ts`, `actions.ts` | MCP SDK, Zod | ✅ 完成 |
+| [app/store](./app/store/CLAUDE.md) | Zustand全局状态管理 | `index.ts`, `chat.ts` | Zustand持久化 | ✅ 完成 |
+| [app/utils](./app/utils/CLAUDE.md) | 通用工具函数库 | 无单一入口（按功能分文件） | 纯函数工具集 | ✅ 完成 |
+| [src-tauri](./src-tauri/CLAUDE.md) | Tauri桌面应用后端 | `src/main.rs` | Rust, Tauri API | ✅ 完成 |
+| [scripts](./scripts/CLAUDE.md) | 构建部署脚本 | `setup.sh`, `deploy.sh` | Shell脚本 | ✅ 完成 |
+
+**覆盖率统计**：9/11 模块已完成文档（82%）
 
 ---
 
@@ -290,6 +296,16 @@ yarn test:ci
 1. 检查 `app/api/common.ts` 的通用逻辑
 2. 查看具体服务商的 `app/api/{provider}.ts`
 3. 验证环境变量配置
+
+**使用工具函数**
+1. 检查 `app/utils/` 目录下的工具文件
+2. 详细接口见 [app/utils/CLAUDE.md](./app/utils/CLAUDE.md)
+3. 常用工具：`deepClone`、`prettyObject`、`createPersistStore`
+
+**配置MCP服务器**
+1. 检查 `app/mcp/mcp_config.json` 配置
+2. 详细接口见 [app/mcp/CLAUDE.md](./app/mcp/CLAUDE.md)
+3. 使用 `addMcpServer`、`executeMcpAction` 等接口
 
 ---
 
