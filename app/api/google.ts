@@ -1,7 +1,8 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./auth";
 import { getServerSideConfig } from "@/app/config/server";
 import { ApiPath, GEMINI_BASE_URL, ModelProvider } from "@/app/constant";
+import { prettyObject } from "@/app/utils/format";
 
 const serverConfig = getServerSideConfig();
 
@@ -32,7 +33,7 @@ export async function handle(
     return NextResponse.json(
       {
         error: true,
-        message: "missing GOOGLE_API_KEY in server env vars",
+        message: `missing GOOGLE_API_KEY in server env vars`,
       },
       {
         status: 401,
@@ -43,33 +44,29 @@ export async function handle(
     const response = await request(req, apiKey);
     return response;
   } catch (e) {
-    const error = e as Error;
-    console.error("[Google] ", error);
-    console.error("[Google] Error details:", {
-      name: error.name,
-      message: error.message,
-      stack: error.stack,
-      cause: error.cause,
-      timestamp: new Date().toISOString(),
-      url: req.url,
-      method: req.method,
-    });
-    return NextResponse.json(
-      {
-        error: true,
-        message: `Google API 请求失败: ${error.message || String(error)}`,
-        details: error.name || "UnknownError",
-      },
-      { status: 500 },
-    );
+    console.error("[Google] ", e);
+    return NextResponse.json(prettyObject(e));
   }
 }
 
 export const GET = handle;
 export const POST = handle;
 
-export const runtime = "nodejs";
-export const maxDuration = 300; // 5 minutes for long requests
+export const runtime = "edge";
+export const preferredRegion = [
+  "bom1",
+  "cle1",
+  "cpt1",
+  "gru1",
+  "hnd1",
+  "iad1",
+  "icn1",
+  "kix1",
+  "pdx1",
+  "sfo1",
+  "sin1",
+  "syd1",
+];
 
 async function request(req: NextRequest, apiKey: string) {
   const controller = new AbortController();
@@ -119,27 +116,9 @@ async function request(req: NextRequest, apiKey: string) {
 
   try {
     const res = await fetch(fetchUrl, fetchOptions);
-
-    // Log response status
-    console.log("[Google] Response status:", res.status, res.statusText);
-
-    // Log details when status is not ok
-    if (!res.ok) {
-      const errorText = await res.clone().text();
-      console.error("[Google] API Error Response:", {
-        status: res.status,
-        statusText: res.statusText,
-        body: errorText,
-        url: fetchUrl,
-        timestamp: new Date().toISOString(),
-      });
-    }
-
     // to prevent browser prompt for credentials
     const newHeaders = new Headers(res.headers);
     newHeaders.delete("www-authenticate");
-    newHeaders.delete("content-encoding");
-    newHeaders.delete("content-length");
     // to disable nginx buffering
     newHeaders.set("X-Accel-Buffering", "no");
 
@@ -148,17 +127,6 @@ async function request(req: NextRequest, apiKey: string) {
       statusText: res.statusText,
       headers: newHeaders,
     });
-  } catch (fetchError) {
-    console.error("[Google] Fetch Error:", {
-      name: fetchError.name,
-      message: fetchError.message,
-      stack: fetchError.stack,
-      url: fetchUrl,
-      timestamp: new Date().toISOString(),
-    });
-    throw new Error(
-      `网络请求失败: ${fetchError.message || fetchError.toString()}`,
-    );
   } finally {
     clearTimeout(timeoutId);
   }
